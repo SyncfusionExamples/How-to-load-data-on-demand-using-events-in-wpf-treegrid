@@ -1,0 +1,34 @@
+﻿<syncfusion:ChromelessWindow x:Class="OnDemandLoading.MainWindow"
+                             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"                             
+                             xmlns:local="clr-namespace:OnDemandLoading"
+                             xmlns:interactivity="http://schemas.microsoft.com/xaml/behaviors"
+                             xmlns:syncfusion="http://schemas.syncfusion.com/wpf"                             
+                             Icon="App.ico"
+                             WindowStartupLocation="CenterScreen">
+    <syncfusion:ChromelessWindow.DataContext>
+        <local:ViewModel />
+    </syncfusion:ChromelessWindow.DataContext>
+    
+    <Grid>
+        <syncfusion:SfTreeGrid Name="treeGrid"
+                                       AutoGenerateColumns="False"                                       
+                                       ItemsSource="{Binding EmployeeDetails}">
+            <interactivity:Interaction.Behaviors>
+                <local:RequestTreeItemsBehavior />
+            </interactivity:Interaction.Behaviors>
+
+            <syncfusion:SfTreeGrid.Columns>
+                <syncfusion:TreeGridTextColumn HeaderText="First Name" MappingName="FirstName" />
+                <syncfusion:TreeGridTextColumn HeaderText="Employee ID"
+                                                       MappingName="ID"
+                                                       TextAlignment="Left" />
+
+                <syncfusion:TreeGridTextColumn HeaderText="Last Name" MappingName="LastName" />
+                <syncfusion:TreeGridTextColumn MappingName="Title" />
+                <syncfusion:TreeGridCurrencyColumn MappingName="Salary" />
+                <syncfusion:TreeGridTextColumn HeaderText="Reports To" MappingName="ReportsTo" />
+            </syncfusion:SfTreeGrid.Columns>
+        </syncfusion:SfTreeGrid>
+    </Grid>
+</syncfusion:ChromelessWindow>
