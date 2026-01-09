@@ -1,25 +1,23 @@
-# How to load data on demand using events in WPF TreeGrid
+# How to Load Data on Demand Using Events in WPF TreeGrid?
 
 This example illustrates how to load data on demand using events in [WPF TreeGrid](https://www.syncfusion.com/wpf-controls/treegrid) (SfTreeGrid).
 
-`SfTreeGrid` supports to load the data in on-demand through [SfTreeGrid.RequestTreeItems](https://help.syncfusion.com/cr/wpf/Syncfusion.UI.Xaml.TreeGrid.SfTreeGrid.html#Syncfusion_UI_Xaml_TreeGrid_SfTreeGrid_RequestTreeItems) event. `RequestTreeItems` event is triggered at the time of loading and when user expand any node at runtime. SfTreeGrid gets the root and leaf nodes through this event handler.
+`TreeGrid` supports to load the data in on-demand through [SfTreeGrid.RequestTreeItems](https://help.syncfusion.com/cr/wpf/Syncfusion.UI.Xaml.TreeGrid.SfTreeGrid.html#Syncfusion_UI_Xaml_TreeGrid_SfTreeGrid_RequestTreeItems) event. `RequestTreeItems` event is triggered at the time of loading and when user expand any node at runtime. SfTreeGrid gets the root and leaf nodes through this event handler.
 
 `TreeGridRequestTreeItemsEventArgs.ParentItem` denotes the data object looking for its child nodes. If it is null, it denotes SfTreeGrid requesting root nodes.
 
 In the below example SfTreeGrid is populated through `SfTreeGrid.RequestTreeItems` instead of setting [SfTreeGrid.ItemsSource](https://help.syncfusion.com/cr/wpf/Syncfusion.UI.Xaml.TreeGrid.SfTreeGrid.html#Syncfusion_UI_Xaml_TreeGrid_SfTreeGrid_ItemsSource).
 
-``` csharp
+``` c#
 ViewModel viewModel = new ViewModel();
 treeGrid.RequestTreeItems += TreeGrid_RequestTreeItems;
       
 private void TreeGrid_RequestTreeItems(object sender, TreeGridRequestTreeItemsEventArgs args)
 {
-
     if (args.ParentItem == null)
     {
         args.ChildItems = viewModel.Employees.Where(x => x.ReportsTo == -1);
     }
-
     else
     {
         EmployeeInfo employee = args.ParentItem as EmployeeInfo;
@@ -32,7 +30,7 @@ private void TreeGrid_RequestTreeItems(object sender, TreeGridRequestTreeItemsEv
 }
 ```
 
-``` csharp
+``` c#
 public class EmployeeInfo
 {
     int _id;
@@ -80,13 +78,14 @@ public class EmployeeInfo
 }
 ```
 
-``` csharp
+``` c#
 public class ViewModel
 {
     public ViewModel()
     {
         this.Employees = this.GetEmployees();
     }
+
     private ObservableCollection<EmployeeInfo> _employees;
 
     public ObservableCollection<EmployeeInfo> Employees
@@ -147,3 +146,7 @@ public class ViewModel
     }
 }
 ```
+
+You can let `TreeGrid` to populate the data at runtime by calling [SfTreeGrid.RepopulateTree](https://help.syncfusion.com/cr/wpf/Syncfusion.UI.Xaml.TreeGrid.SfTreeGrid.html#Syncfusion_UI_Xaml_TreeGrid_SfTreeGrid_RepopulateTree) method.
+
+![TreeGrid ItemSource loaded on demand using event](TreegridOnDemandLoad.gif)
